@@ -196,7 +196,11 @@ void MainWindow::setUI() {
     horizontalFrameLine->setFrameShape(QFrame::HLine);
 
     // Bouton pour supprimer l'usager sélectionné dans la liste
-    /*À Faire*/
+    // TODO verifier
+    boutonSupprimer = new QPushButton(this);
+    boutonSupprimer->setText("Supprimer");
+    connect(boutonSupprimer, SIGNAL(clicked()),
+            this, SLOT(supprimerUsagerSelectionne()));
 
     // Bouton pour ajouter l'usager dont on
     // vient d'entrer les informations
@@ -208,6 +212,7 @@ void MainWindow::setUI() {
     // Organisation horizontale des boutons
     QHBoxLayout* ajouterSupprimerLayout = new QHBoxLayout;
     ajouterSupprimerLayout->addWidget(boutonAjouter);
+    ajouterSupprimerLayout->addWidget(boutonSupprimer);
     // À faire ajouter le bouton supprimé
 
     // Organisation pour la colonne de droite
