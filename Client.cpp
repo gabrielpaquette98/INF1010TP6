@@ -12,10 +12,10 @@ Client::Client(const string &nom, const string &prenom, int identifiant,
 {
 }
 
-Client::obtenirCodeClient() {
+unsigned int Client::obtenirCodeClient() {
     return codeClient_;
 }
 
-Client::modifierCodeClient(unsigned int codeClient) {
+void Client::modifierCodeClient(unsigned int codeClient) {
     codeClient_ = codeClient;
 }
