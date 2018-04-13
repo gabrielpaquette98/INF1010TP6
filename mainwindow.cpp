@@ -163,7 +163,7 @@ void MainWindow::setUI() {
     QLabel* joursRestantsLabel = new QLabel;
     joursRestantsLabel->setText("Jours restants:");
     editeurJoursRestants = new QLineEdit;
-    editeurJoursRestants->setValidator(new QIntValidator(0, 100000, Q_NULLPTR));
+    editeurJoursRestants->setValidator(new QIntValidator(0, 1000, Q_NULLPTR));
 
     QHBoxLayout* joursRestantsLayout = new QHBoxLayout;
     joursRestantsLayout->addWidget(joursRestantsLabel);
