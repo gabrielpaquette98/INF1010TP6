@@ -58,6 +58,12 @@ void MainWindow::setup() {
 void MainWindow::setConnections()
 {
    /*À Faire*/
+    //connecter le signal signal_usagerAjoute (Usager* u) du gestionnaire au slot usagerAEteAjoute(Usager* u)
+    connect(gestionnaire_, SIGNAL(signal_usagerAjoute(Usager*)),
+            this, SLOT(usagerAEteAjoute(Usager*)));
+    //connecter le signal signal_usagerSupprime(Usager* u) du gestionnaire au slot usagerAEteSupprime(Usager* u)
+    connect(gestionnaire_, SIGNAL(signal_usagerSupprime(Usager*)),
+            this, SLOT(usagerAEteSupprime(Usager*)));
 }
 
 void MainWindow::setMenu() {
