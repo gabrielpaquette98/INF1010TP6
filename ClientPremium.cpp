@@ -19,3 +19,7 @@ unsigned int ClientPremium::obtenirJoursRestants() const
 {
     return joursRestants_;
 }
+
+void ClientPremium::modifierJoursRestants(unsigned int joursRestants) {
+    joursRestants_ = joursRestants;
+}

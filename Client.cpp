@@ -12,7 +12,7 @@ Client::Client(const string &nom, const string &prenom, int identifiant,
 {
 }
 
-unsigned int Client::obtenirCodeClient() {
+unsigned int Client::obtenirCodeClient() const {
     return codeClient_;
 }
 
