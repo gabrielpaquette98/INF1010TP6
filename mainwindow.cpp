@@ -140,13 +140,33 @@ void MainWindow::setUI() {
     prenomLayout->addWidget(editeurPrenom);
 
     //Champ pour l'identifiant avec validateur int entre 0 et 100 000
-    /*À Faire*/
+    /*À Faire : validateur entre 0 et 100 000*/
+    QLabel* identifiantLabel = new QLabel;
+    identifiantLabel->setText("Identifiant:");
+    editeurIdentifiant = new QLineEdit;
+
+    QHBoxLayout* identifiantLayout = new QHBoxLayout;
+    identifiantLayout->addWidget(identifiantLabel);
+    identifiantLayout->addWidget(editeurIdentifiant);
 
     // Champ pour le code postal
-    /*À Faire*/
+    QLabel* codePostalLabel = new QLabel;
+    codePostalLabel->setText("Code postal:");
+    editeurCodePostal = new QLineEdit;
+
+    QHBoxLayout* codePostalLayout = new QHBoxLayout;
+    codePostalLayout->addWidget(codePostalLabel);
+    codePostalLayout->addWidget(editeurCodePostal);
 
     //Champ pour JoursRestant de ClientPremium avec validateur int entre 0 et 1000
-    /*À Faire*/
+    /*À Faire : validateur et affichage uniquement pour clients premiums*/
+    QLabel* joursRestantsLabel = new QLabel;
+    joursRestantsLabel->setText("Jours restants:");
+    editeurJoursRestants = new QLineEdit;
+
+    QHBoxLayout* joursRestantsLayout = new QHBoxLayout;
+    joursRestantsLayout->addWidget(joursRestantsLabel);
+    joursRestantsLayout->addWidget(editeurJoursRestants);
 
     // Boutons radio
     QRadioButton* clientPremiumBoutonRadio = new QRadioButton("&ClientPremium", this);
@@ -191,10 +211,12 @@ void MainWindow::setUI() {
     // À faire ajouter le bouton supprimé
 
     // Organisation pour la colonne de droite
-    // ajouter les 3 champs: identifiant, code postal, joursRestants
     QVBoxLayout* displayLayout = new QVBoxLayout;
     displayLayout->addLayout(nomLayout);
     displayLayout->addLayout(prenomLayout);
+    displayLayout->addLayout(identifiantLayout);
+    displayLayout->addLayout(codePostalLayout);
+    displayLayout->addLayout(joursRestantsLayout);
     displayLayout->addLayout(typeUsagerLayout);
     displayLayout->addWidget(horizontalFrameLine);
     displayLayout->addLayout(ajouterSupprimerLayout);
