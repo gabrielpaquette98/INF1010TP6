@@ -87,15 +87,13 @@ void MainWindow::setMenu() {
 void MainWindow::setUI() {
 
     // Le sélecteur pour filtrer ce que l'on souhaite dans la liste (QComboBox*)
-    /*À Faire*/
-    // liste de filstres
+    // liste de filtres
     QStringList listeFiltres = (QStringList()
                                 << "Tout Afficher"
                                 << "Afficher Clients Reguliers"
                                 << "Afficher Clients Premiums"
                                 << "Afficher Fournisseurs");
     QComboBox* showCombobox = new QComboBox(this);
-    // TODO ajouter les elements au combo box
     showCombobox->addItems(listeFiltres);
 
     // La liste des usagers
@@ -159,7 +157,6 @@ void MainWindow::setUI() {
     codePostalLayout->addWidget(editeurCodePostal);
 
     //Champ pour JoursRestant de ClientPremium avec validateur int entre 0 et 1000
-    /*À Faire : affichage uniquement pour clients premiums*/
     QLabel* joursRestantsLabel = new QLabel;
     joursRestantsLabel->setText("Jours restants:");
     editeurJoursRestants = new QLineEdit;
@@ -295,8 +292,74 @@ bool MainWindow::filtrerMasque(Usager* usager) {
 
 //Fonction qui affiche les usagers d'un certain type selon l'index donné en paramètre
 //Il s'agit des champs du dropdown menu ( Tous les usagers = 0 , Tous les clients reguliers = 1, tous les fournisseurs = 2...)
+// TODO refactoring
 void MainWindow::filtrerListe(int index) {
-    /*À Faire*/
+    // on s'assure que la liste soit vide
+    listUsager->clear();
+    switch (index) {
+    case 0:
+        for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
+            // On récupère le pointeur vers l'employé
+            Usager* usager = gestionnaire_->obtenirUsager(i);
+            if (usager == nullptr) {
+                continue;
+            }
+            // Et on l'ajoute en tant qu'item de la liste:
+            // le nom et prenom sera affiché, et le pointeur sera contenu
+            QListWidgetItem* item = new QListWidgetItem(
+                QString::fromStdString(usager->obtenirNom()) + ", " + QString::fromStdString(usager->obtenirPrenom()), listUsager);
+            item->setData(Qt::UserRole, QVariant::fromValue<Usager*>(usager));
+            item->setHidden(filtrerMasque(usager));
+        }
+        break;
+    case 1: // clients reg
+        for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
+            // on recupere le pointeur vers le client
+            Usager* usager = gestionnaire_->obtenirUsager(i);
+            if (dynamic_cast<Client*>(usager) == nullptr) {
+                continue;
+            }
+            QListWidgetItem* item = new QListWidgetItem(
+                        QString::fromStdString(usager->obtenirNom()) + ", " +
+                        QString::fromStdString(usager->obtenirPrenom()),
+                        listUsager);
+            item->setData(Qt::UserRole, QVariant::fromValue<Usager*>(usager));
+            item->setHidden(filtrerMasque(usager));
+        }
+        break;
+    case 2: // clients premiums
+        for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
+            // on recupere le pointeur vers le client
+            Usager* usager = gestionnaire_->obtenirUsager(i);
+            if (dynamic_cast<ClientPremium*>(usager) == nullptr) {
+                continue;
+            }
+            QListWidgetItem* item = new QListWidgetItem(
+                        QString::fromStdString(usager->obtenirNom()) + ", " +
+                        QString::fromStdString(usager->obtenirPrenom()),
+                        listUsager);
+            item->setData(Qt::UserRole, QVariant::fromValue<Usager*>(usager));
+            item->setHidden(filtrerMasque(usager));
+        }
+        break;
+    case 3: // fournisseurs
+        for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
+            // on recupere le pointeur vers le client
+            Usager* usager = gestionnaire_->obtenirUsager(i);
+            if (dynamic_cast<Fournisseur*>(usager) == nullptr) {
+                continue;
+            }
+            QListWidgetItem* item = new QListWidgetItem(
+                        QString::fromStdString(usager->obtenirNom()) + ", " +
+                        QString::fromStdString(usager->obtenirPrenom()),
+                        listUsager);
+            item->setData(Qt::UserRole, QVariant::fromValue<Usager*>(usager));
+            item->setHidden(filtrerMasque(usager));
+        }
+        break;
+    default:
+        return;
+    }
 }
 
 //Fonction qui affiche les informations de l'usager sélectionné à partir de la liste.
