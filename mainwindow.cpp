@@ -140,10 +140,10 @@ void MainWindow::setUI() {
     prenomLayout->addWidget(editeurPrenom);
 
     //Champ pour l'identifiant avec validateur int entre 0 et 100 000
-    /*À Faire : validateur entre 0 et 100 000*/
     QLabel* identifiantLabel = new QLabel;
     identifiantLabel->setText("Identifiant:");
     editeurIdentifiant = new QLineEdit;
+    editeurIdentifiant->setValidator(new QIntValidator(0, 100000, Q_NULLPTR));
 
     QHBoxLayout* identifiantLayout = new QHBoxLayout;
     identifiantLayout->addWidget(identifiantLabel);
@@ -159,10 +159,11 @@ void MainWindow::setUI() {
     codePostalLayout->addWidget(editeurCodePostal);
 
     //Champ pour JoursRestant de ClientPremium avec validateur int entre 0 et 1000
-    /*À Faire : validateur et affichage uniquement pour clients premiums*/
+    /*À Faire : affichage uniquement pour clients premiums*/
     QLabel* joursRestantsLabel = new QLabel;
     joursRestantsLabel->setText("Jours restants:");
     editeurJoursRestants = new QLineEdit;
+    editeurJoursRestants->setValidator(new QIntValidator(0, 100000, Q_NULLPTR));
 
     QHBoxLayout* joursRestantsLayout = new QHBoxLayout;
     joursRestantsLayout->addWidget(joursRestantsLabel);
