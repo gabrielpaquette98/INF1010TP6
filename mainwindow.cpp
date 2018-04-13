@@ -214,7 +214,6 @@ void MainWindow::setUI() {
     QHBoxLayout* ajouterSupprimerLayout = new QHBoxLayout;
     ajouterSupprimerLayout->addWidget(boutonAjouter);
     ajouterSupprimerLayout->addWidget(boutonSupprimer);
-    // À faire ajouter le bouton supprimé
 
     // Organisation pour la colonne de droite
     QVBoxLayout* displayLayout = new QVBoxLayout;
@@ -253,7 +252,9 @@ void MainWindow::setUI() {
 
 //Cette fonction crée une boite de message de type popup
 void MainWindow::afficherMessage(QString msg) {
-    /*À Faire*/
+    QMessageBox msgBox;
+    msgBox.setText(msg);
+    msgBox.exec();
 }
 
 //Charger tous les usagers connus
