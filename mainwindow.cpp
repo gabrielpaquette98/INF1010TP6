@@ -88,7 +88,15 @@ void MainWindow::setUI() {
 
     // Le sélecteur pour filtrer ce que l'on souhaite dans la liste (QComboBox*)
     /*À Faire*/
+    // liste de filstres
+    QStringList listeFiltres = (QStringList()
+                                << "Tout Afficher"
+                                << "Afficher Clients Reguliers"
+                                << "Afficher Clients Premiums"
+                                << "Afficher Fournisseurs");
     QComboBox* showCombobox = new QComboBox(this);
+    // TODO ajouter les elements au combo box
+    showCombobox->addItems(listeFiltres);
 
     // La liste des usagers
     listUsager = new QListWidget(this);
@@ -108,6 +116,7 @@ void MainWindow::setUI() {
     // éléments que l'on veut dans l'ordre dans lequel on veut qu'ils apparaissent
     QVBoxLayout* listLayout = new QVBoxLayout;
     // à faire ajouter  le sélecteur
+    listLayout->addWidget(showCombobox);
     listLayout->addWidget(listUsager);
     listLayout->addWidget(boutonSupprimerTousLesUsagers);
     // à faire ajouter le  nouveau usager
