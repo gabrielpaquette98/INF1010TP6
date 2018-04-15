@@ -96,6 +96,9 @@ void MainWindow::setUI() {
     QComboBox* showCombobox = new QComboBox(this);
     showCombobox->addItems(listeFiltres);
 
+    // connection de la combobox
+    connect(showCombobox, SIGNAL(currentIndexChanged(int)), this, SLOT(filtrerListe(int)));
+
     // La liste des usagers
     listUsager = new QListWidget(this);
     listUsager->setSortingEnabled(true);
