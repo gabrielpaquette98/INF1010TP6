@@ -454,12 +454,19 @@ void MainWindow::changerTypeUsager(int index) {
 
 //Supprimer tous les usagers de la liste
 void MainWindow::supprimerTousLesUsagers() {
-    /*À Faire*/
+    /* TODO optimiser */
+    for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
+        usagerAEteSupprime(gestionnaire_->obtenirUsager(i));
+    }
+    for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
+        gestionnaire_->supprimerUsager(gestionnaire_->obtenirUsager(i));
+    }
 }
 
 //Supprime l'usager sélectionné dans la liste
 void MainWindow::supprimerUsagerSelectionne() {
     /*À Faire*/
+
 }
 
 //Ajoute un nouvel usager dans la liste
