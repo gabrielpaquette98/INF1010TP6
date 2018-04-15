@@ -111,7 +111,9 @@ void MainWindow::setUI() {
     connect(boutonSupprimerTousLesUsagers, SIGNAL(clicked()), this, SLOT(supprimerTousLesUsagers()));
 
     // Le bouton pour remettre à zéro la vue et ajouter un nouvel employé
-    /*À Faire*/
+    QPushButton* boutonAjouterUsager = new QPushButton(this);
+    boutonAjouterUsager->setText("Ajouter Usager");
+    connect(boutonAjouterUsager, SIGNAL(clicked(bool)), this, SLOT(nettoyerVue()));
 
     // Le premier layout, pour la colonne de gauche, dans lequel on insère les
     // éléments que l'on veut dans l'ordre dans lequel on veut qu'ils apparaissent
@@ -120,7 +122,7 @@ void MainWindow::setUI() {
     listLayout->addWidget(showCombobox);
     listLayout->addWidget(listUsager);
     listLayout->addWidget(boutonSupprimerTousLesUsagers);
-    // à faire ajouter le  nouveau usager
+    listLayout->addWidget(boutonAjouterUsager);
 
     // Champ pour le nom
     QLabel* nomLabel = new QLabel;
@@ -486,6 +488,7 @@ void MainWindow::ajouterUsager() {
 
     /*À Faire*/
     try {
+
         //On trouve le bon type d'usager selon le bouton radio sélectionné
         /*...*/
 
