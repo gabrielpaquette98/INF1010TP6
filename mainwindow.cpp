@@ -86,15 +86,26 @@ void MainWindow::setMenu() {
 
 void MainWindow::setUI() {
 
+    QAction* listerTous = new QAction(this);
+    listerTous->setText("Tout Afficher");
+
+    QAction* listerClientsRegs = new QAction(this);
+    listerClientsRegs->setText("Afficher Clients Reguliers");
+
+    QAction* listerClientsPrems = new QAction(this);
+    listerClientsPrems->setText("Afficher Clients Premiums");
+
+    QAction* listerFournisseurs = new QAction(this);
+    listerFournisseurs->setText("Afficher Fournisseurs");
+
     // Le sélecteur pour filtrer ce que l'on souhaite dans la liste (QComboBox*)
-    // liste de filtres
-    QStringList listeFiltres = (QStringList()
-                                << "Tout Afficher"
-                                << "Afficher Clients Reguliers"
-                                << "Afficher Clients Premiums"
-                                << "Afficher Fournisseurs");
+
     QComboBox* showCombobox = new QComboBox(this);
-    showCombobox->addItems(listeFiltres);
+
+    showCombobox->addItem(listerTous->text(), QVariant::fromValue(listerTous));
+    showCombobox->addItem(listerClientsRegs->text(), QVariant::fromValue(listerClientsRegs));
+    showCombobox->addItem(listerClientsPrems->text(), QVariant::fromValue(listerClientsPrems));
+    showCombobox->addItem(listerFournisseurs->text(), QVariant::fromValue(listerFournisseurs));
 
     // La liste des usagers
     listUsager = new QListWidget(this);
