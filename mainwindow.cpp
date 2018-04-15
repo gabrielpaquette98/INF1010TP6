@@ -465,8 +465,18 @@ void MainWindow::supprimerTousLesUsagers() {
 
 //Supprime l'usager sélectionné dans la liste
 void MainWindow::supprimerUsagerSelectionne() {
-    /*À Faire*/
+    // Trouver l'information de l'usager selectionne
+    int identifiantRecherche = editeurIdentifiant->text().toInt();
 
+    // Rechercher l'usager
+    for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
+        if (gestionnaire_->obtenirUsager(i)->obtenirIdentifiant() == identifiantRecherche) {
+            // supprimer l'usager
+            usagerAEteSupprime(gestionnaire_->obtenirUsager(i));
+            gestionnaire_->supprimerUsager(gestionnaire_->obtenirUsager(i));
+            break;
+        }
+    }
 }
 
 //Ajoute un nouvel usager dans la liste
@@ -475,24 +485,26 @@ void MainWindow::ajouterUsager() {
     Usager* nouvelUsager;
 
     /*À Faire*/
+    try {
+        //On trouve le bon type d'usager selon le bouton radio sélectionné
+        /*...*/
 
-    //Utilisation d'un try throw catch pour faire un popup message si tous les champs ne sont pas remplis
-    /*...*/
+        // On créé le bon type d'usager selon le cas
+        /*...*/
 
-    //On trouve le bon type d'usager selon le bouton radio sélectionné
-    /*...*/
+        //Vérification que tous les champs ont été complétés
+        /*...*/
 
-    // On créé le bon type d'usager selon le cas
-    /*...*/
+        // On ajoute le nouvel usager créé au gestionnaire
+        /*...*/
 
-    //Vérification que tous les champs ont été complétés
-    /*...*/
+        // Mais on le stocke aussi localement dans l'attribut ajoute_ pour pouvoir le supprimer plus tard
+        /*...*/
+    }
+    catch (ExceptionArgumentInvalide& eai) {
+        afficherMessage(eai.what());
+    }
 
-    // On ajoute le nouvel usager créé au gestionnaire
-    /*...*/
-
-    // Mais on le stocke aussi localement dans l'attribut ajoute_ pour pouvoir le supprimer plus tard
-    /*...*/
 }
 
 //Mise à jour de la vue après l'ajout d'un usager
