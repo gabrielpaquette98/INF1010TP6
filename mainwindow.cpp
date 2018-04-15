@@ -57,7 +57,6 @@ void MainWindow::setup() {
 
 void MainWindow::setConnections()
 {
-   /*À Faire*/
     //connecter le signal signal_usagerAjoute (Usager* u) du gestionnaire au slot usagerAEteAjoute(Usager* u)
     connect(gestionnaire_, SIGNAL(signal_usagerAjoute(Usager*)),
             this, SLOT(usagerAEteAjoute(Usager*)));
@@ -118,7 +117,6 @@ void MainWindow::setUI() {
     // Le premier layout, pour la colonne de gauche, dans lequel on insère les
     // éléments que l'on veut dans l'ordre dans lequel on veut qu'ils apparaissent
     QVBoxLayout* listLayout = new QVBoxLayout;
-    // à faire ajouter  le sélecteur
     listLayout->addWidget(showCombobox);
     listLayout->addWidget(listUsager);
     listLayout->addWidget(boutonSupprimerTousLesUsagers);
