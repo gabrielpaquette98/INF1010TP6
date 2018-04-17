@@ -458,9 +458,7 @@ void MainWindow::supprimerTousLesUsagers() {
     for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
         usagerAEteSupprime(gestionnaire_->obtenirUsager(i));
     }
-    for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
-        gestionnaire_->supprimerUsager(gestionnaire_->obtenirUsager(i));
-    }
+    gestionnaire_->obtenirUsagers().clear();
 }
 
 //Supprime l'usager sélectionné dans la liste
@@ -480,6 +478,7 @@ void MainWindow::supprimerUsagerSelectionne() {
 }
 
 //Ajoute un nouvel usager dans la liste
+// TODO optimiser
 void MainWindow::ajouterUsager() {
 
     Usager* nouvelUsager;
@@ -487,20 +486,40 @@ void MainWindow::ajouterUsager() {
     /*À Faire*/
     try {
 
-        //On trouve le bon type d'usager selon le bouton radio sélectionné
-        /*...*/
+        // Trouver le bouton selectionne
+        QAbstractButton* boutonUsagerSelectionne;
+        foreach (QAbstractButton *button, boutonRadioTypeUsager) {
+            if (button->isChecked()) {
+                boutonUsagerSelectionne = button;
+                break;
+            }
+        }
 
-        // On créé le bon type d'usager selon le cas
-        /*...*/
-
-        //Vérification que tous les champs ont été complétés
-        /*...*/
-
-        // On ajoute le nouvel usager créé au gestionnaire
-        /*...*/
-
-        // Mais on le stocke aussi localement dans l'attribut ajoute_ pour pouvoir le supprimer plus tard
-        /*...*/
+        // On trouve le bon type d'usager selon le bouton radio sélectionné
+        if (boutonUsagerSelectionne->text().toLocal8Bit().constData() == "&ClientPremium") {
+            // On créé le bon type d'usager selon le cas
+            nouvelUsager = new ClientPremium();
+            // Vérification que tous les champs ont été complétés
+            // On ajoute le nouvel usager créé au gestionnaire
+            // Mais on le stocke aussi localement dans l'attribut ajoute_ pour pouvoir
+            //     le supprimer plus tard
+        }
+        else if (boutonUsagerSelectionne->text().toLocal8Bit().constData() == "&Client") {
+            // On créé le bon type d'usager selon le cas
+            nouvelUsager = new Client();
+            // Vérification que tous les champs ont été complétés
+            // On ajoute le nouvel usager créé au gestionnaire
+            // Mais on le stocke aussi localement dans l'attribut ajoute_ pour pouvoir
+            //     le supprimer plus tard
+        }
+        else { // Fournisseur
+            // On créé le bon type d'usager selon le cas
+            nouvelUsager = new Fournisseur();
+            // Vérification que tous les champs ont été complétés
+            // On ajoute le nouvel usager créé au gestionnaire
+            // Mais on le stocke aussi localement dans l'attribut ajoute_ pour pouvoir
+            //     le supprimer plus tard
+        }
     }
     catch (ExceptionArgumentInvalide& eai) {
         afficherMessage(eai.what());
