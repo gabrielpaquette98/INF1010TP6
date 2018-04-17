@@ -199,6 +199,7 @@ void MainWindow::setUI() {
     // Bouton pour supprimer l'usager sélectionné dans la liste
     // TODO verifier
     boutonSupprimer = new QPushButton(this);
+    boutonSupprimer->setEnabled(false);
     boutonSupprimer->setText("Supprimer");
     connect(boutonSupprimer, SIGNAL(clicked()),
             this, SLOT(supprimerUsagerSelectionne()));
@@ -370,7 +371,7 @@ void MainWindow::filtrerListe(int index) {
 //Les champs sont disabled à l'utilisateur pour éviter qu'il ne modifie l'objet
 void MainWindow::selectionnerUsager(QListWidgetItem* item) {
     Usager* usager = item->data(Qt::UserRole).value<Usager*>();
-
+    boutonSupprimer->setEnabled(true);
     //Tous les champs sont mis à disabled et affiche l'information de l'usager sélectionné
     /*À Faire*/
     editeurNom->setDisabled(true);
@@ -463,16 +464,23 @@ void MainWindow::supprimerTousLesUsagers() {
 
 //Supprime l'usager sélectionné dans la liste
 void MainWindow::supprimerUsagerSelectionne() {
-    // Trouver l'information de l'usager selectionne
-    int identifiantRecherche = editeurIdentifiant->text().toInt();
+    if(!(editeurNom->text().length() == 0 &&
+         editeurPrenom->text().length() == 0 &&
+         editeurIdentifiant->text().length() == 0 &&
+         editeurCodePostal->text().length() == 0 &&
+         editeurJoursRestants->text().length() == 0))
+    {
+        // Trouver l'information de l'usager selectionne
+        int identifiantRecherche = editeurIdentifiant->text().toInt();
 
-    // Rechercher l'usager
-    for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
-        if (gestionnaire_->obtenirUsager(i)->obtenirIdentifiant() == identifiantRecherche) {
-            // supprimer l'usager
-            usagerAEteSupprime(gestionnaire_->obtenirUsager(i));
-            gestionnaire_->supprimerUsager(gestionnaire_->obtenirUsager(i));
-            break;
+        // Rechercher l'usager
+        for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
+            if (gestionnaire_->obtenirUsager(i)->obtenirIdentifiant() == identifiantRecherche) {
+                // supprimer l'usager
+                usagerAEteSupprime(gestionnaire_->obtenirUsager(i));
+                gestionnaire_->supprimerUsager(gestionnaire_->obtenirUsager(i));
+                break;
+            }
         }
     }
 }
@@ -485,7 +493,8 @@ void MainWindow::ajouterUsager() {
 
     /*À Faire*/
     try {
-
+        ExceptionArgumentInvalide exception("allo");
+        throw exception;
         // Trouver le bouton selectionne
         QAbstractButton* boutonUsagerSelectionne;
         foreach (QAbstractButton *button, boutonRadioTypeUsager) {
