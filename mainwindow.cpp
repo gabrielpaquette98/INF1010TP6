@@ -501,33 +501,32 @@ void MainWindow::ajouterUsager() {
                 break;
             }
         }
-
+        if (editeurNom->text().length() == 0)
+        {
+            throw ExceptionArgumentInvalide("Erreur: Le champs Nom est invalide. ");
+        }
+        if (editeurPrenom->text().length() == 0)
+        {
+            throw ExceptionArgumentInvalide("Erreur: Le champs Prenom est invalide. ");
+        }
+        if (editeurIdentifiant->text().length() == 0)
+        {
+            throw ExceptionArgumentInvalide("Erreur: Le champs Identifiant est invalide. ");
+        }
+        if (editeurCodePostal->text().length() == 0)
+        {
+            throw ExceptionArgumentInvalide("Erreur: Le champs Code Postal est invalide. ");
+        }
         // On trouve le bon type d'usager selon le bouton radio sélectionné
         if (boutonUsagerSelectionne->text().toLocal8Bit().constData() == "&ClientPremium")
         {
             // On créé le bon type d'usager selon le cas
-            nouvelUsager = new ClientPremium();
+            nouvelUsager = new ClientPremium(&editeurNom->text().toLocal8Bit().constData(),
+                                             &editeurPrenom->text().toLocal8Bit().constData(),
+                                             &editeurIdentifiant->text().toInt()
+                                             &editeurCodePostal->text().toLocal8Bit().constData()
+                                             &editeurJoursRestants->text().toInt());
             // Vérification que tous les champs ont été complétés
-            if (editeurNom->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Nom est invalide. ");
-            }
-            if (editeurPrenom->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Prenom est invalide. ");
-            }
-            if (editeurIdentifiant->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Identifiant est invalide. ");
-            }
-            if (editeurCodePostal->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Code Postal est invalide. ");
-            }
-            if (editeurJoursRestants->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Jours Restants est invalide. ");
-            }
             // On ajoute le nouvel usager créé au gestionnaire
             gestionnaire_->ajouterUsager(nouvelUsager);
             // Mais on le stocke aussi localement dans l'attribut ajoute_ pour pouvoir
@@ -536,23 +535,10 @@ void MainWindow::ajouterUsager() {
         }
         else if (boutonUsagerSelectionne->text().toLocal8Bit().constData() == "&Client") {
             // On créé le bon type d'usager selon le cas
-            nouvelUsager = new Client();
-            if (editeurNom->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Nom est invalide. ");
-            }
-            if (editeurPrenom->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Prenom est invalide. ");
-            }
-            if (editeurIdentifiant->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Identifiant est invalide. ");
-            }
-            if (editeurCodePostal->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Code Postal est invalide. ");
-            }
+            nouvelUsager = new Client(&editeurNom->text().toLocal8Bit().constData(),
+                                      &editeurPrenom->text().toLocal8Bit().constData(),
+                                      &editeurIdentifiant->text().toInt()
+                                      &editeurCodePostal->text().toLocal8Bit().constData());
             // On ajoute le nouvel usager créé au gestionnaire
             gestionnaire_->ajouterUsager(nouvelUsager);
             // Mais on le stocke aussi localement dans l'attribut ajoute_ pour pouvoir
@@ -561,23 +547,10 @@ void MainWindow::ajouterUsager() {
         }
         else { // Fournisseur
             // On créé le bon type d'usager selon le cas
-            nouvelUsager = new Fournisseur();
-            if (editeurNom->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Nom est invalide. ");
-            }
-            if (editeurPrenom->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Prenom est invalide. ");
-            }
-            if (editeurIdentifiant->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Identifiant est invalide. ");
-            }
-            if (editeurCodePostal->text().length() == 0)
-            {
-                throw ExceptionArgumentInvalide("Erreur: Le champs Code Postal est invalide. ");
-            }
+            nouvelUsager = new Fournisseur(&editeurNom->text().toLocal8Bit().constData(),
+                                           &editeurPrenom->text().toLocal8Bit().constData(),
+                                           &editeurIdentifiant->text().toInt()
+                                           &editeurCodePostal->text().toLocal8Bit().constData());
             // On ajoute le nouvel usager créé au gestionnaire
             gestionnaire_->ajouterUsager(nouvelUsager);
             // Mais on le stocke aussi localement dans l'attribut ajoute_ pour pouvoir
