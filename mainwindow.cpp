@@ -459,7 +459,12 @@ void MainWindow::supprimerTousLesUsagers() {
     for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
         usagerAEteSupprime(gestionnaire_->obtenirUsager(i));
     }
-    gestionnaire_->obtenirUsagers().clear();
+    for (int i = 0; i < gestionnaire_->obtenirNombreUsager(); ++i) {
+            // supprimer l'usager
+            usagerAEteSupprime(gestionnaire_->obtenirUsager(i));
+            gestionnaire_->supprimerUsager(gestionnaire_->obtenirUsager(i));
+    }
+    chargerUsagers();
 }
 
 //Supprime l'usager sélectionné dans la liste
@@ -518,14 +523,14 @@ void MainWindow::ajouterUsager() {
             throw ExceptionArgumentInvalide("Erreur: Le champs Code Postal est invalide. ");
         }
         // On trouve le bon type d'usager selon le bouton radio sélectionné
-        if (boutonUsagerSelectionne->text().toLocal8Bit().constData() == "&ClientPremium")
+        if (boutonUsagerSelectionne->text() == "&ClientPremium")
         {
             // On créé le bon type d'usager selon le cas
-            nouvelUsager = new ClientPremium(&editeurNom->text().toLocal8Bit().constData(),
-                                             &editeurPrenom->text().toLocal8Bit().constData(),
-                                             &editeurIdentifiant->text().toInt()
-                                             &editeurCodePostal->text().toLocal8Bit().constData()
-                                             &editeurJoursRestants->text().toInt());
+            nouvelUsager = new ClientPremium(editeurNom->text().toLocal8Bit().constData(),
+                                             editeurPrenom->text().toLocal8Bit().constData(),
+                                             editeurIdentifiant->text().toInt(),
+                                             editeurCodePostal->text().toLocal8Bit().constData(),
+                                             editeurJoursRestants->text().toInt());
             // Vérification que tous les champs ont été complétés
             // On ajoute le nouvel usager créé au gestionnaire
             gestionnaire_->ajouterUsager(nouvelUsager);
@@ -533,12 +538,12 @@ void MainWindow::ajouterUsager() {
             //     le supprimer plus tard
             ajoute_.push_back(nouvelUsager);
         }
-        else if (boutonUsagerSelectionne->text().toLocal8Bit().constData() == "&Client") {
+        else if (boutonUsagerSelectionne->text() == "&Client") {
             // On créé le bon type d'usager selon le cas
-            nouvelUsager = new Client(&editeurNom->text().toLocal8Bit().constData(),
-                                      &editeurPrenom->text().toLocal8Bit().constData(),
-                                      &editeurIdentifiant->text().toInt()
-                                      &editeurCodePostal->text().toLocal8Bit().constData());
+            nouvelUsager = new Client(editeurNom->text().toLocal8Bit().constData(),
+                                      editeurPrenom->text().toLocal8Bit().constData(),
+                                      editeurIdentifiant->text().toInt(),
+                                      editeurCodePostal->text().toLocal8Bit().constData());
             // On ajoute le nouvel usager créé au gestionnaire
             gestionnaire_->ajouterUsager(nouvelUsager);
             // Mais on le stocke aussi localement dans l'attribut ajoute_ pour pouvoir
@@ -547,10 +552,10 @@ void MainWindow::ajouterUsager() {
         }
         else { // Fournisseur
             // On créé le bon type d'usager selon le cas
-            nouvelUsager = new Fournisseur(&editeurNom->text().toLocal8Bit().constData(),
-                                           &editeurPrenom->text().toLocal8Bit().constData(),
-                                           &editeurIdentifiant->text().toInt()
-                                           &editeurCodePostal->text().toLocal8Bit().constData());
+            nouvelUsager = new Fournisseur(editeurNom->text().toLocal8Bit().constData(),
+                                           editeurPrenom->text().toLocal8Bit().constData(),
+                                           editeurIdentifiant->text().toInt(),
+                                           editeurCodePostal->text().toLocal8Bit().constData());
             // On ajoute le nouvel usager créé au gestionnaire
             gestionnaire_->ajouterUsager(nouvelUsager);
             // Mais on le stocke aussi localement dans l'attribut ajoute_ pour pouvoir
@@ -561,12 +566,18 @@ void MainWindow::ajouterUsager() {
     catch (ExceptionArgumentInvalide& eai) {
         afficherMessage(eai.what());
     }
-
+    chargerUsagers();
 }
 
 //Mise à jour de la vue après l'ajout d'un usager
 void MainWindow::usagerAEteAjoute(Usager* u) {
     /*À Faire*/
+    QListWidgetItem* item = new QListWidgetItem(
+        QString::fromStdString(u->obtenirNom()) + ", " + QString::fromStdString(u->obtenirPrenom()), listUsager);
+    item->setData(Qt::UserRole, QVariant::fromValue<Usager*>(u));
+    item->setHidden(filtrerMasque(u));
+
+    nettoyerVue();
 }
 
 //Mise à jour de la vue après la suppression d'un usager
