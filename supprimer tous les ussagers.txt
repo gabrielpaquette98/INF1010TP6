@@ -1,0 +1,11 @@
+void MainWindow::supprimerTousLesUsagers() {
+    vector<Usager*> toDelete;
+        for (int i = 0; i < listUsager->count(); ++i) {
+            QListWidgetItem *item = listUsager->item(i);
+            toDelete.push_back(item->data(Qt::UserRole).value<Usager*>());
+        }
+
+        for (Usager* u : toDelete) {
+            gestionnaire_->supprimerUsager(u);
+        }
+}
